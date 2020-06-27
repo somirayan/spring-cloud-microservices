@@ -3,6 +3,7 @@ package com.appsdeveloperblog.photoapp.api.users.security;
 import com.appsdeveloperblog.photoapp.api.users.service.UsersService;
 import com.appsdeveloperblog.photoapp.api.users.shared.UserDto;
 import com.appsdeveloperblog.photoapp.api.users.ui.model.LoginRequestModel;
+import com.appsdeveloperblog.photoapp.api.users.ui.model.TokenResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -60,7 +61,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                 .signWith(SignatureAlgorithm.HS512, environment.getProperty("token.secret"))
                 .compact();
 
+        TokenResponse tokenResponse = new TokenResponse();
+        tokenResponse.setAccessToken(token);
+
         response.addHeader("token", token);
         response.addHeader("userId", userDetails.getUserId());
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write(
+                new ObjectMapper().writeValueAsString(tokenResponse));
     }
 }

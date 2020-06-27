@@ -1,11 +1,13 @@
 package com.appsdeveloperblog.photoapp.api.users.service;
 
+import com.appsdeveloperblog.photoapp.api.users.data.Role;
 import com.appsdeveloperblog.photoapp.api.users.data.UserEntity;
 import com.appsdeveloperblog.photoapp.api.users.data.UsersRepository;
 import com.appsdeveloperblog.photoapp.api.users.shared.UserDto;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -49,8 +51,17 @@ public class UsersServiceImpl implements UsersService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = usersRepository.findByEmail(username);
 
-        if (userEntity == null) throw new UsernameNotFoundException(username);
+        if (userEntity == null || userEntity.getRole() == null || userEntity.getRole().isEmpty()) throw new UsernameNotFoundException(username);
 
-        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), true, true, true, true, new ArrayList<>());
+        GrantedAuthority[] authorities = new GrantedAuthority[userEntity.getRole().size()];
+        int count=0;
+
+        for (Role role : userEntity.getRole()) {
+            //NOTE: normally we dont need to add "ROLE_" prefix. Spring does automatically for us.
+            //Since we are using custom token using JWT we should add ROLE_ prefix
+            //authorities[count] = "ROLE_"+role.getRole();
+            count++;
+        }
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), userEntity.isEnabled(), userEntity.isExpired(), true, userEntity.isLocked(), authorities);
     }
 }
