@@ -1,6 +1,8 @@
 package com.appsdeveloperblog.photoapp.api.users;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +19,12 @@ public class PhotoappApiUsersApplication {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public HttpTraceRepository htttpTraceRepository()
+    {
+        return new InMemoryHttpTraceRepository();
     }
 
 

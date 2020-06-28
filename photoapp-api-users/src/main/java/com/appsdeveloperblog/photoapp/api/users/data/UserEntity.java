@@ -31,12 +31,12 @@ public class UserEntity implements Serializable {
 
     private int active=1;
 
-    private boolean isLocked=false;
+    private boolean isNonLocked =true;
 
-    private boolean isExpired=false;
+    private boolean isNonExpired =true;
 
-    private boolean isEnabled=false;
+    private boolean isEnabled=true;
 
-    @OneToMany
-    private Set<Role> role;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Role> roles;
 }

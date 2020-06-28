@@ -8,14 +8,18 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -27,11 +31,18 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public UserDto createUser(UserDto userDetails) {
 
-        userDetails.setUserId(UUID.randomUUID().toString());
-        userDetails.setEncryptedPassword(passwordEncoder.encode(userDetails.getPassword()));
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+
+        userDetails.setUserId(UUID.randomUUID().toString());
+        userDetails.setEncryptedPassword(passwordEncoder.encode(userDetails.getPassword()));
         UserEntity userEntity = modelMapper.map(userDetails, UserEntity.class);
+
+        Set<Role> roles = new HashSet<>();
+        Role role = new Role();
+        role.setRole("ROLE_USER");
+        roles.add(role);
+        userEntity.setRoles(roles);
 
         usersRepository.save(userEntity);
 
@@ -42,26 +53,22 @@ public class UsersServiceImpl implements UsersService {
     public UserDto getUserDetailsByEmail(String email) {
         UserEntity userEntity = usersRepository.findByEmail(email);
 
-        if (userEntity == null) throw new UsernameNotFoundException(email);
+        ModelMapper modelMapper = new ModelMapper();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
 
-        return new ModelMapper().map(userEntity, UserDto.class);
+        if (userEntity == null) throw new UsernameNotFoundException(email);
+        return modelMapper.map(userEntity, UserDto.class);
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = usersRepository.findByEmail(username);
 
-        if (userEntity == null || userEntity.getRole() == null || userEntity.getRole().isEmpty()) throw new UsernameNotFoundException(username);
+        if (userEntity == null || userEntity.getRoles() == null || userEntity.getRoles().isEmpty()) throw new UsernameNotFoundException(username);
 
-        GrantedAuthority[] authorities = new GrantedAuthority[userEntity.getRole().size()];
-        int count=0;
+        List<String> roles = userEntity.getRoles().stream().map(Role::getRole).collect(Collectors.toList());
+        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(String.valueOf(roles));
 
-        for (Role role : userEntity.getRole()) {
-            //NOTE: normally we dont need to add "ROLE_" prefix. Spring does automatically for us.
-            //Since we are using custom token using JWT we should add ROLE_ prefix
-            //authorities[count] = "ROLE_"+role.getRole();
-            count++;
-        }
-        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), userEntity.isEnabled(), userEntity.isExpired(), true, userEntity.isLocked(), authorities);
+        return new User(userEntity.getEmail(), userEntity.getEncryptedPassword(), userEntity.isEnabled(), userEntity.isNonExpired(), true, userEntity.isNonLocked(), authorities);
     }
 }

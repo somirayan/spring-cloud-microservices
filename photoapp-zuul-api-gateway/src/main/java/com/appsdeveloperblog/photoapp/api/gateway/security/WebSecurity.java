@@ -13,9 +13,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     private final Environment env;
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    private final RestAccessDeniedHandler restAccessDeniedHandler;
 
-    public WebSecurity(Environment env) {
+    public WebSecurity(Environment env, RestAuthenticationEntryPoint restAuthenticationEntryPoint, RestAccessDeniedHandler restAccessDeniedHandler) {
+
         this.env = env;
+        this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
+        this.restAccessDeniedHandler = restAccessDeniedHandler;
     }
 
     @Override
@@ -23,12 +28,18 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.headers().frameOptions().disable();
         http.authorizeRequests()
+                .antMatchers(env.getProperty("api.users.actuator.url.path")).permitAll()
+                .antMatchers(env.getProperty("api.zuul.actuator.url.path")).permitAll()
                 .antMatchers(env.getProperty("api.h2console.url.path")).permitAll()
                 .antMatchers(HttpMethod.POST, env.getProperty("api.registration.url.path")).permitAll()
                 .antMatchers(HttpMethod.POST, env.getProperty("api.login.url.path")).permitAll()
+                .antMatchers(env.getProperty("api.users.url.path")).hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
                 .anyRequest().authenticated()
                 .and()
+                .exceptionHandling().accessDeniedHandler(restAccessDeniedHandler).authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
                 .addFilter(new AuthorizationFilter(authenticationManager(), env));
+
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 }

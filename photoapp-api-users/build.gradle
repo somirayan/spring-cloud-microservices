@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.8'
     compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.11.0'
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
