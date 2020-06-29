@@ -1,5 +1,7 @@
 package com.appsdeveloperblog.photoapp.api.gateway.exception;
 
+import com.appsdeveloperblog.photoapp.api.gateway.constant.Errors;
+import com.appsdeveloperblog.photoapp.api.gateway.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +20,18 @@ public class GlobalExceptionHandlerController {
     @ResponseBody
     @ExceptionHandler({InsufficientAuthenticationException.class})
     public ResponseEntity<?> handleInsufficientAuthenticationException(HttpServletResponse res, InsufficientAuthenticationException e) throws IOException {
-        //LOG.error("ERROR", e);
         System.out.println("Error: " + e.getMessage());
-
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).contentType(MediaType.APPLICATION_JSON).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).
+                contentType(MediaType.APPLICATION_JSON).
+                body(new ErrorResponse(Errors.AUTH_UNAUTHORIZED.getCode(), Errors.AUTH_UNAUTHORIZED.getMessage()));
     }
 
     @ExceptionHandler({AccessDeniedException.class})
     public ResponseEntity<?> handleAccessDeniedException(HttpServletResponse res, AccessDeniedException e) throws IOException {
-        //LOG.error("ERROR", e);
         System.out.println("Error: " + e.getMessage());
-
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).contentType(MediaType.APPLICATION_JSON).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorResponse(Errors.AUTH_ACCESS_DENIED.getCode(), Errors.AUTH_ACCESS_DENIED.getMessage()));
     }
 
 }

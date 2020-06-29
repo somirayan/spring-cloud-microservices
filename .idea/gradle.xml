@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../pps-agent-core-webservice" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/../pps-agent-core-webservice" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/mobile-app-ws" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/mobile-app-ws" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/photo-app-api-config-server" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/photo-app-api-config-server" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/photo-app-discovery-service" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/photo-app-discovery-service" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/photoapp-api-account-management" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/photoapp-api-account-management" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/photoapp-api-users" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/photoapp-api-users" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/photoapp-zuul-api-gateway" />
+        <option name="gradleJvm" value="1.8" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/photoapp-zuul-api-gateway" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

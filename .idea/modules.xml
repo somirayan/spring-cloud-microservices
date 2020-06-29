@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/spring-cloud-project-1.iml" filepath="$PROJECT_DIR$/.idea/spring-cloud-project-1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/photo-app-discovery-service.iml" filepath="$PROJECT_DIR$/.idea/modules/photo-app-discovery-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/photo-app-discovery-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/photo-app-discovery-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/photo-app-discovery-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/photo-app-discovery-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pps-agent-core-webservice.iml" filepath="$PROJECT_DIR$/.idea/modules/pps-agent-core-webservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pps-agent-core-webservice.main.iml" filepath="$PROJECT_DIR$/.idea/modules/pps-agent-core-webservice.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/pps-agent-core-webservice.test.iml" filepath="$PROJECT_DIR$/.idea/modules/pps-agent-core-webservice.test.iml" />
     </modules>
   </component>
 </project>

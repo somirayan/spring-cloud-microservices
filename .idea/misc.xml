@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/../pps-agent-core-webservice" />
+    <file type="web" url="file://$PROJECT_DIR$/mobile-app-ws" />
+    <file type="web" url="file://$PROJECT_DIR$/photo-app-api-config-server" />
+    <file type="web" url="file://$PROJECT_DIR$/photo-app-discovery-service" />
+    <file type="web" url="file://$PROJECT_DIR$/photoapp-api-account-management" />
+    <file type="web" url="file://$PROJECT_DIR$/photoapp-api-users" />
+    <file type="web" url="file://$PROJECT_DIR$/photoapp-zuul-api-gateway" />
+  </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_14" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
 </project>
